@@ -40,8 +40,19 @@
                         </a></li>
                     <li><a href="#">
                         <i data-feather="settings" aria-hidden="true"></i>
-                        <span>Account settings</span>
-                        </a></li>
+                        <span>Account</span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <i data-feather="log-in" aria-hidden="true"></i>
+                        <span>Parkir Masuk</span>
+                        </a>
+                    </li>
+                    <li><a href="#">
+                        <i data-feather="log-out" aria-hidden="true"></i>
+                        <span>Parkir Keluar</span>
+                        </a>
+                    </li>
                     <li>
                         <a class="danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i data-feather="log-out" aria-hidden="true"></i>
@@ -54,7 +65,7 @@
                 </ul>
             </div>
         </div>
-    </div>  
+    </div>
 </nav>
 
 <script>

@@ -27,7 +27,7 @@
                 <li>
                     <a class="show-cat-btn" href="#">
                         <span class="icon document" aria-hidden="true"></span>
-                        Posts
+                        Data Management
                         <span class="category__btn transparent-btn" title="Open list">
                             <span class="sr-only">Open list</span>
                             <span class="icon arrow-down" aria-hidden="true"></span>
@@ -35,7 +35,7 @@
                     </a>
                     <!-- Submenu Posts -->
                     <ul class="cat-sub-menu">
-                        <li><a href="posts.html">All Posts</a></li>
+                        <li><a href="{{ route('admin.user') }}">User Management</a></li>
                         <li><a href="new-post.html">Add new post</a></li>
                     </ul>
                 </li>
@@ -65,20 +65,5 @@
                 <!-- dan seterusnya -->
             </ul>
         </div>
-    </div>
-    <!-- Footer Sidebar -->
-    <div class="sidebar-footer">
-        <a href="#" class="sidebar-user">
-            <span class="sidebar-user-img">
-                <picture>
-                    <source srcset="{{ asset('assets/img/avatar/avatar-illustrated-01.webp') }}" type="image/webp">
-                    <img src="{{ asset('assets/img/avatar/avatar-illustrated-02.png') }}" alt="User name">
-                </picture>
-            </span>
-            <div class="sidebar-user-info">
-                <span class="sidebar-user__title">Nafisa Sh.</span>
-                <span class="sidebar-user__subtitle">Support manager</span>
-            </div>
-        </a>
     </div>
 </aside>
