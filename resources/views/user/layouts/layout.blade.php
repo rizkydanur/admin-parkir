@@ -10,6 +10,10 @@
   <link rel="shortcut icon" href="{{ asset('assets/img/svg/logo.svg') }}" type="image/x-icon">
   <!-- Custom styles -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('assets/css/bootstrap.min.css') }}">
+  <!-- Template styles -->
+  <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
+  <!-- Livewire styles -->
 </head>
 
 <body>
@@ -22,13 +26,13 @@
   <div class="main-wrapper">
     <!-- ! Main nav -->
     @include('user.layouts.header')
-    
+
     <!-- ! Main -->
     @yield('content')
-    
+
     <!-- ! Footer -->
     @include('user.layouts.footer')
-   
+
   </div>
 </div>
 <!-- Chart library -->
@@ -37,6 +41,9 @@
 <script src="{{ asset('assets/plugins/feather.min.js') }}"></script>
 <!-- Custom scripts -->
 <script src="{{ asset('assets/js/script.js') }}"></script>
+<!-- Bootstrap JavaScript -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
 </body>
 
 </html>

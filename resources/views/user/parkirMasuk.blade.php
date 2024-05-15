@@ -2,8 +2,8 @@
 
 @section('content')
 <div>
-
-    {{--@livewire('parkir-masuk-livewire')--}}
+    <h1>test</h1>
+    @livewire('parkir-masuk-livewire')
 </div>
 
 @endsection

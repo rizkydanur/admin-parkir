@@ -20,9 +20,8 @@ All Normal Users Routes List
 Route::middleware(['auth', 'user-access:user'])->group(function () {
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-
-    Route::get('/home/parkirMasuk', [UsersController::class, 'parkirMasuk'])->name('parkir.masuk');
-    Route::get('/home/parkirKeluar', [UsersController::class, 'parkirKeluar'])->name('parkir.keluar');
+    Route::get('parkir/masuk', [UsersController::class, 'parkirMasuk'])->name('parkir.masuk');
+    Route::get('parkir/keluar', [UsersController::class, 'parkirKeluar'])->name('parkir.keluar');
 });
 
 

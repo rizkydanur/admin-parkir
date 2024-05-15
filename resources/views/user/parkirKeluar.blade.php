@@ -3,7 +3,7 @@
 @section('content')
 <div>
     <!-- Memanggil Komponen Livewire "Parkir Masuk" -->
-    {{--@livewire('parkir-keluar-livewire')--}}
+    @livewire('parkir-keluar-livewire')
 </div>
 
 @endsection
