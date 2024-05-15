@@ -1,6 +1,6 @@
-<div>
-    <table class="table">
-        <thead>
+<div class="container mt-5">
+    <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">No Polisi</th>
                 <th scope="col">ID Kartu</th>
@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($parkir_masuk as $item)
+            @foreach ($parkirMasuk as $item)
                 <tr>
                     <td>{{ $item->no_polisi }}</td>
                     <td>{{ $item->id_kartu }}</td>

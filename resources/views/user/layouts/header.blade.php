@@ -34,21 +34,21 @@
                     </span>
                 </button>
                 <ul class="users-item-dropdown nav-user-dropdown dropdown">
-                    <li><a href="#">
-                        <i data-feather="user" aria-hidden="true"></i>
-                        <span>Profile</span>
+                    <li><a href="{{ route('home') }}">
+                        <i data-feather="home" aria-hidden="true"></i>
+                        <span>Dashboard</span>
                         </a></li>
                     <li><a href="#">
                         <i data-feather="settings" aria-hidden="true"></i>
                         <span>Account</span>
                         </a>
                     </li>
-                    <li><a href="#">
+                    <li><a href="{{ route('parkir.masuk') }}">
                         <i data-feather="log-in" aria-hidden="true"></i>
                         <span>Parkir Masuk</span>
                         </a>
                     </li>
-                    <li><a href="#">
+                    <li><a href="{{ route('parkir.keluar') }}">
                         <i data-feather="log-out" aria-hidden="true"></i>
                         <span>Parkir Keluar</span>
                         </a>

@@ -26,10 +26,10 @@
   <div class="main-wrapper">
     <!-- ! Main nav -->
     @include('user.layouts.header')
-
+    <br>
     <!-- ! Main -->
     @yield('content')
-
+    <div style="height: 350px;"></div>
     <!-- ! Footer -->
     @include('user.layouts.footer')
 

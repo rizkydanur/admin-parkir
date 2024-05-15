@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($parkir_keluar as $item)
+            @foreach ($parkirKeluar as $item)
                 <tr>
                     <td>{{ $item->no_polisi }}</td>
                     <td>{{ $item->id_kartu }}</td>

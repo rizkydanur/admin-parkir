@@ -10,11 +10,12 @@ class ParkirMasukLivewire extends Component
     public $no_polisi;
     public $id_kartu;
     public $jam_masuk;
+    public $parkirMasuk;
 
     public function render()
     {
-        $parkir_masuk = ParkirMasuk::all();
-        return view('livewire.parkir-masuk', ['parkir_masuk' => $parkir_masuk]);
+        $this->parkirMasuk = ParkirMasuk::all();
+        return view('livewire.parkir-masuk-livewire');
     }
 
     public function store()

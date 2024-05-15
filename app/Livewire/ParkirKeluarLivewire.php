@@ -10,11 +10,13 @@ class ParkirKeluarLivewire extends Component
     public $no_polisi;
     public $id_kartu;
     public $jam_keluar;
+    public $parkirKeluar;
 
     public function render()
     {
-        $parkir_keluar = ParkirKeluar::all();
-        return view('livewire.parkir-keluar', ['parkir_keluar' => $parkir_keluar]);
+        $this->parkirKeluar = ParkirKeluar::all();
+
+        return view('livewire.parkir-keluar-livewire');
     }
 
     public function store()
