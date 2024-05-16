@@ -34,6 +34,15 @@ class PostMasukController extends Controller
      */
     public function store(Request $request)
     {
+         // Periksa apakah bearer token cocok dengan yang diharapkan
+         $token = $request->bearerToken();
+
+         $expectedToken = env('API_BEARER_TOKEN');
+
+         if ($token !== $expectedToken) {
+             return response()->json(['message' => 'Unauthorized'], 401);
+         }
+
         //define validation rules
         $validator = Validator::make($request->all(), [
             'no_polisi'     => 'required',
