@@ -36,14 +36,13 @@
                     <!-- Submenu Posts -->
                     <ul class="cat-sub-menu">
                         <li><a href="{{ route('admin.user') }}">User Management</a></li>
-                        <li><a href="new-post.html">Add new post</a></li>
                     </ul>
                 </li>
                 <!-- Menampilkan submenu lainnya -->
                 <!-- dan seterusnya -->
             </ul>
             <!-- Menu System -->
-            <span class="system-menu__title">system</span>
+            {{--<span class="system-menu__title">system</span>
             <ul class="sidebar-body-menu">
                 <li><a href="appearance.html"><span class="icon edit" aria-hidden="true"></span>Appearance</a></li>
                 <li>
@@ -63,7 +62,7 @@
                 </li>
                 <!-- Menampilkan submenu lainnya -->
                 <!-- dan seterusnya -->
-            </ul>
+            </ul>--}}
         </div>
     </div>
 </aside>
