@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\ParkirMasuk;
-use App\Http\Resources\ParkirResource;
+
 class ParkirMasukLivewire extends Component
 {
     public $no_polisi;
@@ -19,12 +19,7 @@ class ParkirMasukLivewire extends Component
     }
 
 
-    public function index()
-    {
-        $parkirMasuk = ParkirMasuk::latest()->paginate(5);
-        // return view('livewire.parkir-masuk-livewire');
-        return new ParkirResource(true, 'List Data Posts', $parkirMasuk);
-    }
+
 
     public function store()
     {
