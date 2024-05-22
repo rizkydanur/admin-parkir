@@ -49,8 +49,19 @@
               </div>
             </article>
           </div>
+          <div class="col-md-6 col-xl-3">
+            <article class="stat-cards-item">
+              <div class="stat-cards-icon success">
+                <i data-feather="arrow-down" aria-hidden="true"></i>
+              </div>
+              <div class="stat-cards-info">
+                <p class="stat-cards-info__num">25</p>
+                <p class="stat-cards-info__title">Mobil Keluar</p>
+              </div>
+            </article>
+          </div>
         </div>
-      
+
       </div>
 </main>
 

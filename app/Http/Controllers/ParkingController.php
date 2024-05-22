@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
+use App\Models\ParkirMasuk;
 class ParkingController extends Controller
 {
+
     public function getParkingDataBulan()
     {
         $parkirMasuks = DB::table('parkir_masuks')

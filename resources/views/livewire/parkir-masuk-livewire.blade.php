@@ -1,4 +1,5 @@
 <div class="container mt-5">
+    <input type="text" wire:model.debounce.500ms="search" placeholder="Cari nomor polisi...">
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">
             <tr>
@@ -8,15 +9,13 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($parkirMasuk as $item)
+            @foreach ($parkirMasukArray as $item)
                 <tr>
-                    <td>{{ $item->no_polisi }}</td>
-                    <td>{{ $item->id_kartu }}</td>
-                    <td>{{ $item->jam_masuk }}</td>
+                    <td>{{ $item['no_polisi'] }}</td>
+                    <td>{{ $item['id_kartu'] }}</td>
+                    <td>{{ $item['jam_masuk'] }}</td>
                 </tr>
             @endforeach
         </tbody>
     </table>
 </div>
-
-
