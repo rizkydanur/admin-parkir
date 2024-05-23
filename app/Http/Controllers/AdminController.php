@@ -15,4 +15,11 @@ class AdminController extends Controller
     {
         return view('admin.user');
     }
+
+    public function kendaraanMasuk()
+    {
+        return view('admin.akumulasi-parkir');
+    }
+
+
 }

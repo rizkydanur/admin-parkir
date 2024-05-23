@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\ParkirMasuk;
+use App\Models\AkumulasiParkir;
 use Carbon\Carbon;
 class ParkirMasukLivewire extends Component
 {
@@ -75,21 +76,24 @@ class ParkirMasukLivewire extends Component
             'jam_masuk' => 'required|date',
         ]);
 
-        ParkirMasuk::create([
+        // Simpan data parkir masuk
+        $parkirMasuk = ParkirMasuk::create([
             'no_polisi' => $this->no_polisi,
             'id_kartu' => $this->id_kartu,
             'jam_masuk' => $this->jam_masuk,
         ]);
 
+        // Perbarui data akumulasi parkir
+        $akumulasiParkir = AkumulasiParkir::find(1); // Ambil data akumulasi parkir dengan id 1
+        if ($akumulasiParkir) {
+            // Jika data akumulasi parkir ditemukan, tambahkan 1 ke kendaraan_masuk
+            $akumulasiParkir->increment('kendaraan_masuk');
+            $akumulasiParkir->save();
+        }
+
         $this->resetInputFields();
         session()->flash('message', 'Data parkir masuk berhasil ditambahkan.');
     }
 
-    private function resetInputFields()
-    {
-        $this->no_polisi = '';
-        $this->id_kartu = '';
-        $this->jam_masuk = '';
-    }
 }
 

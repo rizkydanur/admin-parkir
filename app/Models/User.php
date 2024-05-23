@@ -34,30 +34,22 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
-     * @return array
+     * @var array
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
 
     /**
-     * Interact with the user's first name.
+     * Get the casted value of the 'type' attribute.
      *
-     * @param  string  $value
-     * @return \Illuminate\Database\Eloquent\Casts\Attribute
+     * @param  mixed  $value
+     * @return string
      */
-    protected function type(): Attribute
+    public function getTypeAttribute($value)
     {
-        return new Attribute(
-            function ($value) {
-                return ["user", "admin"][$value];
-            }
-        );
+        return ["user", "admin"][$value];
     }
 }
