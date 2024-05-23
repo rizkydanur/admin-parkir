@@ -6,28 +6,35 @@ use Livewire\Component;
 use App\Models\ParkirMasuk;
 use App\Models\AkumulasiParkir;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
+
 class ParkirMasukLivewire extends Component
 {
     public $no_polisi;
     public $id_kartu;
     public $jam_masuk;
     public $parkirMasuk;
-    public $search = '';
+    public $search ='';
 
     public function render()
     {
-
         $parkirMasukArray = [];
 
+        // Start building the query
+        $parkirMasukQuery = ParkirMasuk::query()->whereDate('created_at', Carbon::today());
 
-        $parkirMasukQuery = ParkirMasuk::whereDate('created_at', Carbon::today());
-
-        if ($this->search !== null && $this->search !== '') {
-            $parkirMasukQuery->where('no_polisi', 'like', '%' . $this->search . '%');
+        // Apply search condition if $search is not empty
+        if ($this->search !== '') {
+            $parkirMasukQuery->where(function (Builder $query) {
+                $query->where('no_polisi', 'like', '%' . $this->search . '%')
+                    ->orWhere('id_kartu', 'like', '%' . $this->search . '%');
+            });
         }
 
+        // Execute the query
         $parkirMasukResult = $parkirMasukQuery->get();
 
+        // Format the results
         foreach ($parkirMasukResult as $item) {
             $parkirMasukArray[] = [
                 'no_polisi' => $item->no_polisi,
@@ -37,31 +44,6 @@ class ParkirMasukLivewire extends Component
         }
 
         return view('livewire.parkir-masuk-livewire', ['parkirMasukArray' => $parkirMasukArray]);
-
-
-
-        // $query = ParkirMasuk::query();
-
-        // $today = Carbon::today()->toDateString();
-        // $query->whereDate('jam_masuk', $today);
-
-
-        // if (!empty($this->search)) {
-        //     $search = '%' . $this->search . '%';
-        //     $query->where(function($q) use ($search) {
-        //         $q->where('no_polisi', 'like', $search)
-        //         ->orWhere('id_kartu', 'like', $search);
-        //     });
-        // }
-
-        // $parkirMasuk = $query->get();
-
-        // return view('livewire.parkir-masuk-livewire', [
-        //     'parkirMasuk' => $parkirMasuk,
-        // ]);
-
-        // $this->parkirMasuk = ParkirMasuk::all();
-        // return view('livewire.parkir-masuk-livewire');
     }
 
 

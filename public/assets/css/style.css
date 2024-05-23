@@ -4302,3 +4302,31 @@ label {
     flex-direction: column;
   }
 }
+
+/* CSS Custom untuk membuat kartu lebih besar */
+.stat-cards-item {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Mengatur ukuran font untuk judul dan angka */
+.stat-cards-info__num {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.stat-cards-info__title {
+    font-size: 16px;
+    color: #666;
+}
+
+/* Menambahkan sedikit bayangan untuk efek ketinggian */
+.stat-cards-item {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Menambahkan sedikit transisi untuk efek hover */
+.stat-cards-item:hover {
+    transform: translateY(-3px);
+    transition: transform 0.3s ease;
+}
