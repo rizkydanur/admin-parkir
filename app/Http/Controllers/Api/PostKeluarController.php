@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\ParkirKeluar;
-
+use App\Models\AkumulasiParkir;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\ParkirResource;
-
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class PostKeluarController extends Controller
@@ -32,43 +32,92 @@ class PostKeluarController extends Controller
      * @param  mixed $request
      * @return void
      */
+    // public function store(Request $request)
+    // {
+
+
+    //     // Periksa apakah bearer token cocok dengan yang diharapkan
+    //     $token = $request->bearerToken();
+
+    //     $expectedToken = env('API_BEARER_TOKEN');
+
+    //     if ($token !== $expectedToken) {
+    //         return response()->json(['message' => 'Unauthorized'], 401);
+    //     }
+
+
+
+    //     //define validation rules
+    //     $validator = Validator::make($request->all(), [
+    //         'no_polisi'     => 'required',
+    //         'id_kartu'     => 'required',
+    //         'jam_keluar'   => 'required',
+    //     ]);
+
+    //     //check if validation fails
+    //     if ($validator->fails()) {
+    //         return response()->json($validator->errors(), 422);
+    //     }
+
+
+
+    //     //create post
+    //     $parkirmasuk = ParkirKeluar::create([
+    //         'no_polisi'     => $request->no_polisi,
+    //         'id_kartu'     => $request->id_kartu,
+    //         'jam_keluar'   => $request->jam_keluar,
+    //     ]);
+
+    //     //return response
+    //     return new ParkirResource(true, 'Data Post Berhasil Ditambahkan!', $parkirmasuk);
+    // }
+
+
     public function store(Request $request)
-    {
+{
+    // Periksa apakah bearer token cocok dengan yang diharapkan
+    $token = $request->bearerToken();
+    $expectedToken = env('API_BEARER_TOKEN');
 
-
-        // Periksa apakah bearer token cocok dengan yang diharapkan
-        $token = $request->bearerToken();
-
-        $expectedToken = env('API_BEARER_TOKEN');
-
-        if ($token !== $expectedToken) {
-            return response()->json(['message' => 'Unauthorized'], 401);
-        }
-
-
-
-        //define validation rules
-        $validator = Validator::make($request->all(), [
-            'no_polisi'     => 'required',
-            'id_kartu'     => 'required',
-            'jam_keluar'   => 'required',
-        ]);
-
-        //check if validation fails
-        if ($validator->fails()) {
-            return response()->json($validator->errors(), 422);
-        }
-
-
-
-        //create post
-        $parkirmasuk = ParkirKeluar::create([
-            'no_polisi'     => $request->no_polisi,
-            'id_kartu'     => $request->id_kartu,
-            'jam_keluar'   => $request->jam_keluar,
-        ]);
-
-        //return response
-        return new ParkirResource(true, 'Data Post Berhasil Ditambahkan!', $parkirmasuk);
+    if ($token !== $expectedToken) {
+        return response()->json(['message' => 'Unauthorized'], 401);
     }
+
+    // Define validation rules
+    $validator = Validator::make($request->all(), [
+        'no_polisi' => 'required|string',
+        'id_kartu' => 'required|string',
+        'jam_keluar' => 'required|date',
+    ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return response()->json($validator->errors(), 422);
+    }
+
+    // Use a transaction to ensure atomicity
+    DB::transaction(function () use ($request) {
+        // Create post
+        $parkirKeluar = ParkirKeluar::create([
+            'no_polisi' => $request->no_polisi,
+            'id_kartu' => $request->id_kartu,
+            'jam_keluar' => $request->jam_keluar,
+        ]);
+
+        // Update or create the AkumulasiParkir record
+        $akumulasiParkir = AkumulasiParkir::firstOrCreate(
+            ['id' => 1],
+            ['kendaraan_keluar' => 0]
+        );
+
+        // Increment kendaraan_keluar by 1
+        $akumulasiParkir->increment('kendaraan_keluar');
+    });
+
+    // Return response
+    return response()->json(['message' => 'Data parkir keluar berhasil disimpan.']);
+}
+
+
+
 }

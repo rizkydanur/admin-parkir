@@ -73,26 +73,24 @@ class ParkirMasukLivewire extends Component
         $this->validate([
             'no_polisi' => 'required|string',
             'id_kartu' => 'required|string',
-            'jam_masuk' => 'required|date',
+            'jam_keluar' => 'required|date',
         ]);
 
-        // Simpan data parkir masuk
-        $parkirMasuk = ParkirMasuk::create([
+        ParkirMasuk::create([
             'no_polisi' => $this->no_polisi,
             'id_kartu' => $this->id_kartu,
-            'jam_masuk' => $this->jam_masuk,
+            'jam_keluar' => $this->jam_keluar,
         ]);
 
-        // Perbarui data akumulasi parkir
-        $akumulasiParkir = AkumulasiParkir::find(1); // Ambil data akumulasi parkir dengan id 1
-        if ($akumulasiParkir) {
-            // Jika data akumulasi parkir ditemukan, tambahkan 1 ke kendaraan_masuk
-            $akumulasiParkir->increment('kendaraan_masuk');
-            $akumulasiParkir->save();
-        }
-
         $this->resetInputFields();
-        session()->flash('message', 'Data parkir masuk berhasil ditambahkan.');
+        session()->flash('message', 'Data parkir keluar berhasil ditambahkan.');
+    }
+
+    private function resetInputFields()
+    {
+        $this->no_polisi = '';
+        $this->id_kartu = '';
+        $this->jam_masuk = '';
     }
 
 }
