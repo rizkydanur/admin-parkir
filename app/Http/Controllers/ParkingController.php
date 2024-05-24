@@ -45,11 +45,18 @@ class ParkingController extends Controller
 
     public function getParkingDataHari()
     {
-        $today = now()->toDateString(); // Ambil tanggal hari ini
+        $today = now(); // Tanggal hari ini
 
+        // Temukan hari Minggu terdekat sebagai start date
+        $startDate = $today->copy()->startOfWeek()->toDateString();
+
+        // Temukan hari Sabtu terdekat sebagai end date
+        $endDate = $today->copy()->endOfWeek()->toDateString();
+
+        // Ambil data dari database sesuai rentang tanggal
         $parkirMasuks = DB::table('parkir_masuks')
             ->select(DB::raw('DATE(jam_masuk) as date'), DB::raw('COUNT(*) as count'))
-            ->whereDate('jam_masuk', $today)
+            ->whereBetween('jam_masuk', [$startDate, $endDate])
             ->groupBy(DB::raw('DATE(jam_masuk)'))
             ->get()
             ->pluck('count', 'date')
@@ -57,7 +64,7 @@ class ParkingController extends Controller
 
         $parkirKeluars = DB::table('parkir_keluars')
             ->select(DB::raw('DATE(jam_keluar) as date'), DB::raw('COUNT(*) as count'))
-            ->whereDate('jam_keluar', $today)
+            ->whereBetween('jam_keluar', [$startDate, $endDate])
             ->groupBy(DB::raw('DATE(jam_keluar)'))
             ->get()
             ->pluck('count', 'date')
@@ -83,6 +90,7 @@ class ParkingController extends Controller
             'masuk' => $masukData,
             'keluar' => $keluarData
         ]);
+
     }
 
 

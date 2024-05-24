@@ -23,6 +23,8 @@
                 </div>
             </article>
         </div>
+        <br>
+    <br>
         <div class="col-md-6 col-xl-3">
             <article class="stat-cards-item">
                 <div class="stat-cards-icon purple">
@@ -34,6 +36,8 @@
                 </div>
             </article>
         </div>
+        <br>
+    <br>
         <div class="col-md-6 col-xl-3">
             <article class="stat-cards-item">
                 <div class="stat-cards-icon success">
@@ -45,7 +49,11 @@
                 </div>
             </article>
         </div>
-        <div class="col-md-6 col-xl-3">
+    </div>
+    <br>
+
+    <div class="row">
+        <div class="col-md-4 col-xl-3">
             <article class="stat-cards-item">
                 <div class="stat-cards-icon success">
                     <i data-feather="arrow-up" aria-hidden="true"></i>

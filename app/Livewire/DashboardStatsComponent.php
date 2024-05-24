@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
+use App\Models\AkumulasiParkir;
 
 use Livewire\Component;
 use App\Models\ParkirMasuk; // Sesuaikan dengan nama model yang sesuai
@@ -15,16 +16,27 @@ class DashboardStatsComponent extends Component
 
     public function mount()
     {
-        // Ambil data dari database dan assign ke property
-        $this->tempatParkirTersedia = 100; // Contoh data statik, gantilah dengan data yang sesuai dari database
-        $this->tempatParkirTerisi = 50; // Contoh data statik, gantilah dengan data yang sesuai dari database
-        $this->tempatParkirKosong = 25; // Contoh data statik, gantilah dengan data yang sesuai dari database
-        $this->mobilMasuk = 75; // Contoh data statik, gantilah dengan data yang sesuai dari database
-        $this->mobilKeluar = 75; // Contoh data statik, gantilah dengan data yang sesuai dari database
+
+        $this->tempatParkirTersedia = 100;
+        $this->mobilMasuk = 0;
+        $this->mobilKeluar = 0;
+        $this->tempatParkirTerisi = 0;
+        $this->tempatParkirKosong = 0;
+
+
+        $akumulasiParkir = AkumulasiParkir::latest()->first();
+
+
+        if ($akumulasiParkir) {
+            $this->mobilMasuk = $akumulasiParkir->kendaraan_masuk;
+            $this->mobilKeluar = $akumulasiParkir->kendaraan_keluar;
+            $this->tempatParkirTerisi = $this->mobilMasuk - $this->mobilKeluar;
+            $this->tempatParkirKosong = $this->tempatParkirTersedia - $this->tempatParkirTerisi;
+        }
     }
 
     public function render()
     {
-        return view('livewire.dashboard-stats');
+        return view('livewire.dashboard-stats-component');
     }
 }

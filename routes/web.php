@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UsersController;
 use App\Http\Controllers\ParkingController;
+use App\Livewire\AkumulasiParkirLivewire;
 
 Route::get('/', function () {
     return view('auth.login');
@@ -38,6 +39,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
 
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::get('/admin/user', [AdminController::class, 'index'])->name('admin.user');
+    Route::get('/akumulasi-parkir', [AdminController::class, 'kendaraanMasuk'])->name('kendaraan.masuk');
+    // Route::get('/akumulasi-parkir', AkumulasiParkirLivewire::class);
 });
 
 /*------------------------------------------
