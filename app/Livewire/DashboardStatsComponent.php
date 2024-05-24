@@ -16,17 +16,17 @@ class DashboardStatsComponent extends Component
 
     public function mount()
     {
-        // Set nilai default untuk semua properti
+
         $this->tempatParkirTersedia = 100;
         $this->mobilMasuk = 0;
         $this->mobilKeluar = 0;
         $this->tempatParkirTerisi = 0;
         $this->tempatParkirKosong = 0;
 
-        // Ambil data dari model AkumulasiParkir
-        $akumulasiParkir = AkumulasiParkir::latest()->first(); // Misalnya, mengambil data terbaru
 
-        // Isi data sesuai dengan data dari model
+        $akumulasiParkir = AkumulasiParkir::latest()->first();
+
+
         if ($akumulasiParkir) {
             $this->mobilMasuk = $akumulasiParkir->kendaraan_masuk;
             $this->mobilKeluar = $akumulasiParkir->kendaraan_keluar;

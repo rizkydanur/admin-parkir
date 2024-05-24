@@ -4,19 +4,41 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\ParkirKeluar;
+use Livewire\WithPagination;
+use Carbon\Carbon;
 
 class ParkirKeluarLivewire extends Component
 {
     public $no_polisi;
     public $id_kartu;
     public $jam_keluar;
-    public $parkirKeluar;
+    use WithPagination;
+
+    public $search = '';
+
+    protected $paginationTheme = 'bootstrap'; // Optional: Use Bootstrap styling for pagination
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
 
     public function render()
     {
-        $this->parkirKeluar = ParkirKeluar::all();
+        $trimmedSearch = trim($this->search);
 
-        return view('livewire.parkir-keluar-livewire');
+        $parkirKeluarQuery = ParkirKeluar::query()->whereDate('created_at', Carbon::today());
+
+        $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
+            $query->where(function ($query) use ($trimmedSearch) {
+                $query->where('no_polisi', 'like', '%' . $trimmedSearch . '%')
+                      ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
+            });
+        });
+
+        $parkirKeluarResult = $parkirKeluarQuery->paginate(10);
+
+        return view('livewire.parkir-keluar-livewire', ['parkirKeluarArray' => $parkirKeluarResult]);
     }
 
     public function store()
