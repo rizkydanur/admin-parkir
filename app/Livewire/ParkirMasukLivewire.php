@@ -31,36 +31,14 @@ class ParkirMasukLivewire extends Component
             $parkirMasukArray[] = [
                 'no_polisi' => $item->no_polisi,
                 'id_kartu' => $item->id_kartu,
-                'jam_masuk' => $item->jam_masuk,
+                'jam_masuk' => $item->created_at,
             ];
         }
+        
+        return view('livewire.parkir-masuk-livewire', [
+            'parkirMasukArray' => $parkirMasukArray
+        ]);
 
-        return view('livewire.parkir-masuk-livewire', ['parkirMasukArray' => $parkirMasukArray]);
-
-
-
-        // $query = ParkirMasuk::query();
-
-        // $today = Carbon::today()->toDateString();
-        // $query->whereDate('jam_masuk', $today);
-
-
-        // if (!empty($this->search)) {
-        //     $search = '%' . $this->search . '%';
-        //     $query->where(function($q) use ($search) {
-        //         $q->where('no_polisi', 'like', $search)
-        //         ->orWhere('id_kartu', 'like', $search);
-        //     });
-        // }
-
-        // $parkirMasuk = $query->get();
-
-        // return view('livewire.parkir-masuk-livewire', [
-        //     'parkirMasuk' => $parkirMasuk,
-        // ]);
-
-        // $this->parkirMasuk = ParkirMasuk::all();
-        // return view('livewire.parkir-masuk-livewire');
     }
 
 

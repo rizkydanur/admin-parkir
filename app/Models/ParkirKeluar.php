@@ -12,6 +12,5 @@ class ParkirKeluar extends Model
     protected $fillable = [
         'no_polisi',
         'id_kartu',
-        'jam_keluar',
     ];
 }

@@ -34,41 +34,29 @@ class PostKeluarController extends Controller
      */
     public function store(Request $request)
     {
-
-
         // Periksa apakah bearer token cocok dengan yang diharapkan
         $token = $request->bearerToken();
-
         $expectedToken = env('API_BEARER_TOKEN');
-
         if ($token !== $expectedToken) {
             return response()->json(['message' => 'Unauthorized'], 401);
         }
-
-
-
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'no_polisi'     => 'required',
             'id_kartu'     => 'required',
-            'jam_keluar'   => 'required',
         ]);
-
         //check if validation fails
         if ($validator->fails()) {
             return response()->json($validator->errors(), 422);
         }
-
-
-
         //create post
-        $parkirmasuk = ParkirKeluar::create([
-            'no_polisi'     => $request->no_polisi,
+        $parkirkeluar = ParkirKeluar::create([
             'id_kartu'     => $request->id_kartu,
-            'jam_keluar'   => $request->jam_keluar,
+            // 'no_polisi'     => $request->no_polisi,
+            // 'jam_keluar'   => $request->jam_masuk,
         ]);
-
-        //return response
-        return new ParkirResource(true, 'Data Post Berhasil Ditambahkan!', $parkirmasuk);
+        return response()->json([
+            'success'=>true,
+            'data'=>$parkirkeluar,
+        ],200);
     }
 }

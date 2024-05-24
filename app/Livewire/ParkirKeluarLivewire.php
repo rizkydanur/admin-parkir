@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 use App\Models\ParkirKeluar;
+use Carbon\Carbon;
 
 class ParkirKeluarLivewire extends Component
 {
@@ -11,12 +12,33 @@ class ParkirKeluarLivewire extends Component
     public $id_kartu;
     public $jam_keluar;
     public $parkirKeluar;
+    public $search = '';
 
     public function render()
     {
-        $this->parkirKeluar = ParkirKeluar::all();
+        $parkirKeluarArray = [];
 
-        return view('livewire.parkir-keluar-livewire');
+
+        $parkirKeluarQuery = ParkirKeluar::whereDate('created_at', Carbon::today());
+
+        if ($this->search !== null && $this->search !== '') {
+            $parkirKeluarQuery->where('no_polisi', 'like', '%' . $this->search . '%');
+        }
+
+        $parkirKeluarResult = $parkirKeluarQuery->get();
+
+        foreach ($parkirKeluarResult as $item) {
+            $parkirKeluarArray[] = [
+                'no_polisi' => $item->no_polisi,
+                'id_kartu' => $item->id_kartu,
+                'jam_keluar' => $item->created_at,
+            ];
+        }
+        
+
+        return view('livewire.parkir-keluar-livewire',[
+        'parkirKeluarArray'=> $parkirKeluarArray
+        ]);
     }
 
     public function store()
@@ -30,7 +52,7 @@ class ParkirKeluarLivewire extends Component
         ParkirKeluar::create([
             'no_polisi' => $this->no_polisi,
             'id_kartu' => $this->id_kartu,
-            'jam_keluar' => $this->jam_keluar,
+            'jam_keluar' => $this->created_at,
         ]);
 
         $this->resetInputFields();

@@ -45,9 +45,9 @@ class PostMasukController extends Controller
 
         //define validation rules
         $validator = Validator::make($request->all(), [
-            'no_polisi'     => 'required',
             'id_kartu'     => 'required',
-            'jam_masuk'   => 'required',
+            // 'no_polisi'     => 'required',
+            // 'jam_masuk'   => 'required',
         ]);
 
         //check if validation fails
@@ -57,12 +57,13 @@ class PostMasukController extends Controller
 
         //create post
         $parkirmasuk = ParkirMasuk::create([
-            'no_polisi'     => $request->no_polisi,
             'id_kartu'     => $request->id_kartu,
-            'jam_masuk'   => $request->jam_masuk,
+            // 'no_polisi'     => $request->no_polisi,
+            // 'jam_masuk'   => $request->jam_masuk,
         ]);
-
-        //return response
-        return new ParkirResource(true, 'Data Post Berhasil Ditambahkan!', $parkirmasuk);
+        return response()->json([
+            'success'=>true,
+            'data'=>$parkirmasuk,
+        ],200);
     }
 }
