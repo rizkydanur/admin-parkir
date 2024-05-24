@@ -31,7 +31,7 @@ class ParkirMasukLivewire extends Component
     {
         $trimmedSearch = trim($this->search);
 
-        $parkirMasukQuery = ParkirMasuk::query()->whereDate('created_at', Carbon::today());
+        $parkirMasukQuery = ParkirMasuk::query()->whereDate('jam_masuk', Carbon::today())->orderBy('created_at', 'desc');
 
         $parkirMasukQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
             $query->where(function ($query) use ($trimmedSearch) {
@@ -40,7 +40,9 @@ class ParkirMasukLivewire extends Component
             });
         });
 
+
         $parkirMasukResult = $parkirMasukQuery->paginate(5);
+
 
         return view('livewire.parkir-masuk-livewire', ['parkirMasukArray' => $parkirMasukResult]);
     }

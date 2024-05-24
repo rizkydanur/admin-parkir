@@ -1,5 +1,5 @@
 <div class="container mt-5">
-    <input type="text" wire:model.debounce.300ms="search" placeholder="Search by No Polisi or ID Kartu" />
+    <!-- <input type="text" wire:model.debounce.300ms="search" placeholder="Search by No Polisi or ID Kartu" /> -->
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">
             <tr>

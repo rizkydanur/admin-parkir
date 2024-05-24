@@ -27,7 +27,7 @@ class ParkirKeluarLivewire extends Component
     {
         $trimmedSearch = trim($this->search);
 
-        $parkirKeluarQuery = ParkirKeluar::query()->whereDate('created_at', Carbon::today());
+        $parkirKeluarQuery = ParkirKeluar::query()->whereDate('jam_keluar', Carbon::today())->orderBy('created_at', 'desc');
 
         $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
             $query->where(function ($query) use ($trimmedSearch) {

@@ -19,5 +19,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
+
+Route::apiResource('/akumulasiparkir', App\Http\Controllers\Api\AkumulasiParkirController::class);
 Route::apiResource('/postsmasuk', App\Http\Controllers\Api\PostMasukController::class);
 Route::apiResource('/postskeluar', App\Http\Controllers\Api\PostKeluarController::class);

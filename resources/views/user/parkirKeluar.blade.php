@@ -7,7 +7,6 @@
             <div class="card">
                 <div class="card-body">
                 <h1 class="mb-4">Parkir Keluar</h1>
-                <br>
                     @livewire('parkir-keluar-livewire')
                 </div>
             </div>
