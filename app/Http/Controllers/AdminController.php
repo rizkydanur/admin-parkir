@@ -22,4 +22,20 @@ class AdminController extends Controller
     }
 
 
+    public function parkirMasuk()
+    {
+        return view('admin.parkirMasuk');
+    }
+
+    /**
+     * Menampilkan halaman parkir keluar.
+     *
+     * @return \Illuminate\View\View
+     */
+    public function parkirKeluar()
+    {
+        return view('admin.parkirKeluar');
+    }
+
+
 }

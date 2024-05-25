@@ -49,9 +49,12 @@
                     </a>
                     <!-- Submenu Posts -->
                     <ul class="cat-sub-menu">
-                        <li><a href="{{ route('kendaraan.masuk') }}">Parkir Management</a></li>
+                        <li><a href="{{ route('kendaraan.masuk') }}">Akumulasi Parkir</a></li>
+                        <li><a href="{{ route('parkir.masuk.admin') }}">Parkir Masuk</a></li>
+                        <li><a href="{{ route('parkir.keluar.admin') }}">Parkir Keluar</a></li>
                     </ul>
                 </li>
+
                 <!-- Menampilkan submenu lainnya -->
                 <!-- dan seterusnya -->
             </ul>

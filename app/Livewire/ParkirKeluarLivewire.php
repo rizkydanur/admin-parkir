@@ -27,7 +27,7 @@ class ParkirKeluarLivewire extends Component
     {
         $trimmedSearch = trim($this->search);
 
-        $parkirKeluarQuery = ParkirKeluar::query()->whereDate('jam_keluar', Carbon::today())->orderBy('created_at', 'desc');
+        $parkirKeluarQuery = ParkirKeluar::query()->whereDate('jam_keluar', Carbon::today())->orderBy('jam_keluar', 'desc');
 
         $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
             $query->where(function ($query) use ($trimmedSearch) {
@@ -36,7 +36,7 @@ class ParkirKeluarLivewire extends Component
             });
         });
 
-        $parkirKeluarResult = $parkirKeluarQuery->paginate(10);
+        $parkirKeluarResult = $parkirKeluarQuery->paginate(20);
 
         return view('livewire.parkir-keluar-livewire', ['parkirKeluarArray' => $parkirKeluarResult]);
     }

@@ -40,6 +40,8 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/admin/home', [HomeController::class, 'adminHome'])->name('admin.home');
     Route::get('/admin/user', [AdminController::class, 'index'])->name('admin.user');
     Route::get('/akumulasi-parkir', [AdminController::class, 'kendaraanMasuk'])->name('kendaraan.masuk');
+    Route::get('/admin/parkir/masuk', [AdminController::class, 'parkirMasuk'])->name('parkir.masuk.admin');
+    Route::get('/admin/parkir/keluar', [AdminController::class, 'parkirKeluar'])->name('parkir.keluar.admin');
     // Route::get('/akumulasi-parkir', AkumulasiParkirLivewire::class);
 });
 

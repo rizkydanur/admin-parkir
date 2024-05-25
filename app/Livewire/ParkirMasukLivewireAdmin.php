@@ -3,25 +3,29 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\ParkirMasuk;
-use App\Models\AkumulasiParkir;
-use Carbon\Carbon;
 use Livewire\WithPagination;
-use Illuminate\Database\Eloquent\Builder;
+use App\Models\ParkirMasuk;
+use Carbon\Carbon;
 
-class ParkirMasukLivewire extends Component
+class ParkirMasukLivewireAdmin extends Component
 {
+    use WithPagination;
+
     public $no_polisi;
     public $id_kartu;
     public $jam_masuk;
-    public $parkirMasuk;
+    public $parkirId;
     public $isEditMode = false;
-
-    use WithPagination;
-
+    public $showForm = false;
     public $search = '';
 
     protected $paginationTheme = 'bootstrap';
+
+    protected $rules = [
+        'no_polisi' => 'required|string',
+        'id_kartu' => 'required|string',
+        'jam_masuk' => 'required|date_format:Y-m-d H:i:s',
+    ];
 
     public function updatingSearch()
     {
@@ -43,25 +47,20 @@ class ParkirMasukLivewire extends Component
             });
         });
 
-
         $parkirMasukResult = $parkirMasukQuery->paginate(20);
 
-
-        return view('livewire.parkir-masuk-livewire', ['parkirMasukArray' => $parkirMasukResult]);
+        return view('livewire.parkir-masuk-livewire-admin', ['parkirMasukArray' => $parkirMasukResult]);
     }
-
-
-
-
-
 
     private function resetInputFields()
     {
         $this->no_polisi = '';
         $this->id_kartu = '';
         $this->jam_masuk = '';
+        $this->parkirId = null;
+        $this->isEditMode = false;
+        $this->showForm = false;
     }
-
 
     public function store()
     {
@@ -73,7 +72,7 @@ class ParkirMasukLivewire extends Component
             'jam_masuk' => $this->jam_masuk,
         ]);
 
-        session()->flash('message', 'Record added successfully.');
+        session()->flash('message', 'Data parkir masuk berhasil ditambahkan.');
         $this->resetInputFields();
     }
 
@@ -81,11 +80,13 @@ class ParkirMasukLivewire extends Component
     {
         $record = ParkirMasuk::findOrFail($id);
 
+        $this->parkirId = $id;
         $this->no_polisi = $record->no_polisi;
         $this->id_kartu = $record->id_kartu;
         $this->jam_masuk = $record->jam_masuk;
 
         $this->isEditMode = true;
+        $this->showForm = true;
     }
 
     public function update()
@@ -101,7 +102,6 @@ class ParkirMasukLivewire extends Component
 
         session()->flash('message', 'Record updated successfully.');
         $this->resetInputFields();
-        $this->isEditMode = false;
     }
 
     public function delete($id)
@@ -110,6 +110,16 @@ class ParkirMasukLivewire extends Component
         session()->flash('message', 'Record deleted successfully.');
     }
 
+    public function cancel()
+    {
+        $this->resetInputFields();
+    }
 
+    public function toggleForm()
+    {
+        $this->showForm = !$this->showForm;
+        if (!$this->showForm) {
+            $this->resetInputFields();
+        }
+    }
 }
-
