@@ -107,7 +107,7 @@ class ParkirMasukLivewire extends Component
     public function delete($id)
     {
         ParkirMasuk::find($id)->delete();
-        session()->flash('message', 'Record deleted successfully.');
+        session()->flash('message', 'data berhasil di di hapus.');
     }
 
 
