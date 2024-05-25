@@ -15,7 +15,6 @@ class AkumulasiParkir extends Model
      * @var array<int, string>
      */
     protected $fillable = [
-        'kendaraan_masuk',
-        'kendaraan_keluar',
+        'total_kendaraan',
     ];
 }

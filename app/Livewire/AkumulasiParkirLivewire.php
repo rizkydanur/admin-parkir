@@ -8,8 +8,7 @@ use App\Models\AkumulasiParkir;
 
 class AkumulasiParkirLivewire extends Component
 {
-    public $kendaraan_masuk;
-    public $kendaraan_keluar;
+    public $total_kendaraan;
     public $selected_id;
     public $updateMode = false;
 
@@ -21,33 +20,19 @@ class AkumulasiParkirLivewire extends Component
 
     private function resetInput()
     {
-        $this->kendaraan_masuk = null;
-        $this->kendaraan_keluar = null;
-        $this->selected_id = null;
+        $this->total_kendaraan = null;
+
     }
 
-    public function store()
-    {
-        $this->validate([
-            'kendaraan_masuk' => 'required|integer',
-            'kendaraan_keluar' => 'required|integer',
-        ]);
 
-        AkumulasiParkir::create([
-            'kendaraan_masuk' => $this->kendaraan_masuk,
-            'kendaraan_keluar' => $this->kendaraan_keluar,
-        ]);
-
-        $this->resetInput();
-    }
 
     public function edit($id)
     {
         $record = AkumulasiParkir::findOrFail($id);
 
         $this->selected_id = $id;
-        $this->kendaraan_masuk = $record->kendaraan_masuk;
-        $this->kendaraan_keluar = $record->kendaraan_keluar;
+        $this->total_kendaraan = $record->total_kendaraan;
+
 
         $this->updateMode = true;
     }
@@ -55,15 +40,13 @@ class AkumulasiParkirLivewire extends Component
     public function update()
     {
         $this->validate([
-            'kendaraan_masuk' => 'required|integer',
-            'kendaraan_keluar' => 'required|integer',
+            'total_kendaraan' => 'required|integer',
         ]);
 
         if ($this->selected_id) {
             $record = AkumulasiParkir::find($this->selected_id);
             $record->update([
-                'kendaraan_masuk' => $this->kendaraan_masuk,
-                'kendaraan_keluar' => $this->kendaraan_keluar,
+                'total_kendaraan' => $this->total_kendaraan,
             ]);
 
             $this->resetInput();
@@ -71,11 +54,17 @@ class AkumulasiParkirLivewire extends Component
         }
     }
 
-    public function destroy($id)
+    public function resetRecord($id)
     {
-        if ($id) {
-            $record = AkumulasiParkir::where('id', $id);
-            $record->delete();
+        $record = AkumulasiParkir::find($id);
+
+        if ($record) {
+            $record->total_kendaraan = 0;
+            $record->save();
+
+            session()->flash('message', 'Data has been reset successfully.');
+        } else {
+            session()->flash('error', 'Record not found.');
         }
     }
 }

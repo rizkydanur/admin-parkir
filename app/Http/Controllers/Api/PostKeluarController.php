@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\ParkirKeluar;
+use App\Models\AkumulasiParkir;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\ParkirResource;
@@ -62,6 +63,17 @@ class PostKeluarController extends Controller
             'no_polisi' => $request->no_polisi,
             'jam_keluar' => $request->jam_keluar,
         ]);
+
+        // Update akumulasi parkir data
+        $akumulasiParkir = AkumulasiParkir::latest()->first();
+        if ($akumulasiParkir) {
+            $akumulasiParkir->total_kendaraan += 1;
+            $akumulasiParkir->save();
+        } else {
+            AkumulasiParkir::create([
+                'total_kendaraan' => 1,
+            ]);
+        }
 
         return response()->json([
             'success' => true,

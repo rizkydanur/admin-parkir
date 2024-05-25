@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:8889
--- Waktu pembuatan: 24 Bulan Mei 2024 pada 04.04
+-- Waktu pembuatan: 25 Bulan Mei 2024 pada 04.53
 -- Versi server: 5.7.39
 -- Versi PHP: 7.4.33
 
@@ -29,8 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `akumulasi_parkirs` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `kendaraan_masuk` int(11) NOT NULL,
-  `kendaraan_keluar` int(11) NOT NULL,
+  `total_kendaraan` int(11) NOT NULL DEFAULT '0',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -39,8 +38,8 @@ CREATE TABLE `akumulasi_parkirs` (
 -- Dumping data untuk tabel `akumulasi_parkirs`
 --
 
-INSERT INTO `akumulasi_parkirs` (`id`, `kendaraan_masuk`, `kendaraan_keluar`, `created_at`, `updated_at`) VALUES
-(1, 15, 5, '2024-05-22 18:21:51', '2024-05-23 20:15:41');
+INSERT INTO `akumulasi_parkirs` (`id`, `total_kendaraan`, `created_at`, `updated_at`) VALUES
+(2, 6, '2024-05-25 04:19:27', '2024-05-25 04:45:42');
 
 -- --------------------------------------------------------
 
@@ -93,7 +92,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2024_05_23_000234_create_akumulasi_parkir_table', 6),
 (17, '2024_05_23_011011_create_akumulasi_parkirs_table', 7),
 (18, '2024_05_23_011222_create_akumulasi_parkirs_table', 8),
-(19, '2024_05_23_040745_add_last_activity_to_users_table', 9);
+(19, '2024_05_23_040745_add_last_activity_to_users_table', 9),
+(20, '2024_05_25_110242_modify_akumulasi_parkirs_table', 10);
 
 -- --------------------------------------------------------
 
@@ -105,7 +105,7 @@ CREATE TABLE `parkir_keluars` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `no_polisi` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_kartu` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jam_keluar` datetime NOT NULL,
+  `jam_keluar` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -126,7 +126,10 @@ INSERT INTO `parkir_keluars` (`id`, `no_polisi`, `id_kartu`, `jam_keluar`, `crea
 (12, 'B1234zzzz', '21313', '2024-05-23 14:00:00', '2024-05-22 22:59:24', '2024-05-22 22:59:24'),
 (13, 'B1234zzzz', '21313', '2024-05-23 14:00:00', '2024-05-22 22:59:45', '2024-05-22 22:59:45'),
 (14, 'B990ZYV', '21313', '2024-05-23 15:00:00', '2024-05-23 19:55:32', '2024-05-23 19:55:32'),
-(15, 'B990ZYV', '21313', '2024-05-24 15:00:00', '2024-05-23 20:15:41', '2024-05-23 20:15:41');
+(15, 'B990DXY', '21313', '2024-05-24 15:00:00', '2024-05-23 20:15:41', '2024-05-24 16:44:06'),
+(16, 'B723XYZ', '42356', '2024-05-25 10:00:00', '2024-05-24 16:38:25', '2024-05-24 16:38:25'),
+(17, 'B321XUZ', '21313', '2024-05-25 15:00:00', '2024-05-24 16:49:07', '2024-05-24 16:49:07'),
+(18, 'B321XUZ', '21313', '2024-05-25 07:52:31', '2024-05-25 00:46:55', '2024-05-25 00:46:55');
 
 -- --------------------------------------------------------
 
@@ -138,7 +141,7 @@ CREATE TABLE `parkir_masuks` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `no_polisi` varchar(20) COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_kartu` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `jam_masuk` datetime NOT NULL,
+  `jam_masuk` datetime DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -162,8 +165,11 @@ INSERT INTO `parkir_masuks` (`id`, `no_polisi`, `id_kartu`, `jam_masuk`, `create
 (24, 'B1234sas', '21313', '2024-05-23 14:00:00', '2024-05-22 22:43:27', '2024-05-22 22:43:27'),
 (25, 'B1234sas', '21313', '2024-05-23 14:00:00', '2024-05-22 22:56:48', '2024-05-22 22:56:48'),
 (26, 'B321FYV', '21313', '2024-05-24 14:00:00', '2024-05-23 19:37:18', '2024-05-23 19:37:18'),
-(27, 'B990ZYV', '98767', '2024-05-24 14:00:00', '2024-05-23 19:37:37', '2024-05-23 19:37:37'),
-(28, 'B990ZYV', '21313', '2024-05-24 15:00:00', '2024-05-23 19:55:23', '2024-05-23 19:55:23');
+(27, 'B990TXY', '98767', '2024-05-24 14:00:00', '2024-05-23 19:37:37', '2024-05-24 16:41:49'),
+(28, 'B990ZYX', '21313', '2024-05-24 15:00:00', '2024-05-23 19:55:23', '2024-05-24 16:40:19'),
+(29, 'B321XUZ', '21313', '2024-05-25 15:00:00', '2024-05-25 16:47:54', '2024-05-24 17:00:00'),
+(30, 'B990ZYV', '21313', '2024-05-25 08:03:33', '2024-05-25 01:01:57', '2024-05-25 01:01:57'),
+(31, 'B990ZYV', '21313', '2024-05-25 00:00:00', '2024-05-25 01:02:03', '2024-05-25 01:02:03');
 
 -- --------------------------------------------------------
 
@@ -305,7 +311,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT untuk tabel `akumulasi_parkirs`
 --
 ALTER TABLE `akumulasi_parkirs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `failed_jobs`
@@ -317,19 +323,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT untuk tabel `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT untuk tabel `parkir_keluars`
 --
 ALTER TABLE `parkir_keluars`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT untuk tabel `parkir_masuks`
 --
 ALTER TABLE `parkir_masuks`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT untuk tabel `personal_access_tokens`
