@@ -42,3 +42,42 @@ body {
     background-color: #2779bd;
     border-color: #2779bd;
 }
+
+.stat-cards-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    height: 100%;
+}
+.stat-cards-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #f1f1f1;
+}
+.stat-cards-icon.success {
+    background-color: #28a745;
+    color: white;
+}
+.stat-cards-icon.purple {
+    background-color: #6f42c1;
+    color: white;
+}
+.stat-cards-info {
+    text-align: right;
+}
+.stat-cards-info__num {
+    font-size: 24px;
+    font-weight: bold;
+}
+.stat-cards-info__title {
+    font-size: 14px;
+    color: #6c757d;
+}
