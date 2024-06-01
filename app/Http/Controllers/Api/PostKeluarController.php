@@ -8,7 +8,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\ParkirResource;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 class PostKeluarController extends Controller
 {
     /**
@@ -44,8 +45,6 @@ class PostKeluarController extends Controller
         // Define validation rules
         $validator = Validator::make($request->all(), [
             'id_kartu' => 'required',
-            'no_polisi' => 'required',
-            'jam_keluar' => 'required|date',
         ]);
 
         // Check if validation fails
@@ -54,21 +53,31 @@ class PostKeluarController extends Controller
         }
 
         // Konversi format tanggal dan waktu jika validasi berhasil
-        $request->merge(['jam_keluar' => date('Y-m-d H:i:s', strtotime($request->jam_keluar))]);
+        //$request->merge(['jam_keluar' => date('Y-m-d H:i:s', strtotime($request->jam_keluar))]);
 
 
         // Create parkir keluar data
         $parkirKeluar = ParkirKeluar::create([
-            'id_kartu' => $request->id_kartu,
-            'no_polisi' => $request->no_polisi,
-            'jam_keluar' => $request->jam_keluar,
+            'id_kartu'     => Str::random(12),
+            'no_polisi'     => 'B'.random_int(1000,9999).'XXX',
+            'jam_keluar'   => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
         // Update akumulasi parkir data
         $akumulasiParkir = AkumulasiParkir::latest()->first();
         if ($akumulasiParkir) {
-            $akumulasiParkir->total_kendaraan += 1;
-            $akumulasiParkir->save();
+            if($akumulasiParkir->total_kendaraan_parkir <= 0){
+                return response()->json([
+                    'success' => true,
+                    'data' => 'Kendaraan Parkir Kosong',
+                ], 200);
+            }
+                $akumulasiParkir->total_kendaraan_parkir -= 1;
+                $totalSlotParkir = $akumulasiParkir->total_slot_parkir;
+                $totalKendaraanParkir = $akumulasiParkir->total_kendaraan_parkir;
+                $totalParkirTersedia = $totalSlotParkir - $totalKendaraanParkir;
+                $akumulasiParkir->total_parkir_tersedia = $totalParkirTersedia;
+                $akumulasiParkir->save();
         } else {
             AkumulasiParkir::create([
                 'total_kendaraan' => 1,

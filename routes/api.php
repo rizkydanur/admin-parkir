@@ -2,6 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\PostKeluarController;
+use App\Http\Controllers\Api\PostMasukController;
+use App\Http\Controllers\Api\InitialDataController;
 
 
 /*
@@ -21,5 +24,8 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::apiResource('/akumulasiparkir', App\Http\Controllers\Api\AkumulasiParkirController::class);
-Route::apiResource('/postsmasuk', App\Http\Controllers\Api\PostMasukController::class);
-Route::apiResource('/postskeluar', App\Http\Controllers\Api\PostKeluarController::class);
+// Route::apiResource('/postsmasuk', App\Http\Controllers\Api\PostMasukController::class);
+Route::post('/postsmasuk', [PostMasukController::class,'store']);
+Route::post('/postskeluar', [PostKeluarController::class,'store']);
+Route::get('/initialdata', [InitialDataController::class, 'index']);
+

@@ -45,7 +45,7 @@
         </div>
     </div>
 
-    <table class="table table-bordered table-striped table-hover">
+    <table class="table table-bordered table-striped table-hover" wire:poll.2s>
         <thead class="thead-dark">
             <tr>
                 <th scope="col">No Polisi</th>

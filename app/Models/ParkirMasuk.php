@@ -9,8 +9,8 @@ class ParkirMasuk extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'no_polisi',
         'id_kartu',
-
+        'no_polisi',
+        'jam_masuk',
     ];
 }

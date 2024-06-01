@@ -9,14 +9,19 @@ use App\Models\ParkirMasuk;
 use App\Models\AkumulasiParkir;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use PhpMqtt\Client\Facades\MQTT;
 
 class AkumulasiParkirController extends Controller
 {
     public function index()
     {
-
+      
       $akumulasiParkir = AkumulasiParkir::latest()->paginate(5);
-      return new ParkirResource(true, 'List Data Posts', $akumulasiParkir);
+      return response()->json([
+        'success'=>200,
+        'data'=>$akumulasiParkir,
+      ]);
+      //return new ParkirResource(true, 'List Data Posts', $akumulasiParkir);
     }
 
 }

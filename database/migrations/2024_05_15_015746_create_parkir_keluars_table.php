@@ -19,7 +19,7 @@ class CreateParkirKeluarsTable extends Migration
             $table->id();
             $table->string('no_polisi', 20); // Vehicle number
             $table->string('id_kartu', 50); // Card ID
-            $table->dateTime('jam_masuk'); // Entry time
+            $table->dateTime('jam_keluar'); // Entry time
             $table->timestamps();
         });
     }

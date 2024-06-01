@@ -1,16 +1,25 @@
 <div>
-    <table class="table table-bordered">
+    
+    <table class="table table-bordered" wire:poll3.s>
         <thead>
             <tr>
-                <th>total_kendaraan</th>
+                <th>TOTAL KENDARAAN PARKIR</th>
+                <th>TOTAL PARKIR TERSEDIA</th>               
+                <th>TOTAL SLOT PARKIR</th>
+
+
                 <th>Aksi</th>
             </tr>
         </thead>
         <tbody>
             @foreach($data as $item)
                 <tr>
-                    <td>{{ $item->total_kendaraan }}</td>
+                    <td>{{ $item->total_kendaraan_parkir }}</td>
+                    <td>{{ $item->total_parkir_tersedia }}</td>
+                    <td>{{ $item->total_slot_parkir }}</td>
+
                     <td>
+                        
                         <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" wire:click="edit({{ $item->id }})">Edit</button>
                         <button class="btn btn-danger btn-sm" wire:click="resetRecord({{ $item->id }})">reset</button>
 
@@ -33,9 +42,9 @@
                 <div class="modal-body">
                     <form wire:submit.prevent="update">
                         <div class="mb-3">
-                            <label for="total_kendaraan" class="form-label">Total Kendaraan</label>
-                            <input type="number" class="form-control" id="total_kendaraan" wire:model="total_kendaraan">
-                            @error('total_kendaraan') <span class="text-danger">{{ $message }}</span> @enderror
+                            <label for="total_kendaraan_parkir" class="form-label">Total Kendaraan</label>
+                            <input type="number" class="form-control" id="total_kendaraan_parkir" wire:model="total_kendaraan_parkir">
+                            @error('total_kendaraan_parkir') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>
                     </form>

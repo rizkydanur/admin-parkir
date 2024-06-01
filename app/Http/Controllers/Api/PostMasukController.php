@@ -7,6 +7,8 @@ use App\Models\AkumulasiParkir;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Resources\ParkirResource;
+use Illuminate\Support\Str;
+use Illuminate\Support\Carbon;
 
 use Illuminate\Support\Facades\Validator;
 
@@ -46,8 +48,7 @@ class PostMasukController extends Controller
         //define validation rules
         $validator = Validator::make($request->all(), [
             'id_kartu'     => 'required',
-            'no_polisi'     => 'required',
-            'jam_masuk'   => 'required',
+       
         ]);
 
         //check if validation fails
@@ -57,15 +58,25 @@ class PostMasukController extends Controller
 
         //create post
         $parkirmasuk = ParkirMasuk::create([
-            'id_kartu'     => $request->id_kartu,
-            'no_polisi'     => $request->no_polisi,
-            'jam_masuk'   => $request->jam_masuk,
+            'id_kartu'     => Str::random(12),
+            'no_polisi'     => 'B'.random_int(1000,9999).'XXX',
+            'jam_masuk'   => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
         // Update akumulasi parkir data
         $akumulasiParkir = AkumulasiParkir::latest()->first();
         if ($akumulasiParkir) {
-            $akumulasiParkir->total_kendaraan += 1;
+            if($akumulasiParkir->total_kendaraan_parkir >= 144){
+                return response()->json([
+                    'success'=>true,
+                    'data'=>'Maaf Parkir Penuh...',
+                ],200);
+            }
+            $akumulasiParkir->total_kendaraan_parkir += 1;
+            $totalSlotParkir = $akumulasiParkir->total_slot_parkir;
+            $totalKendaraanParkir = $akumulasiParkir->total_kendaraan_parkir;
+            $totalParkirTersedia = $totalSlotParkir - $totalKendaraanParkir;
+            $akumulasiParkir->total_parkir_tersedia = $totalParkirTersedia;
             $akumulasiParkir->save();
         } else {
             AkumulasiParkir::create([

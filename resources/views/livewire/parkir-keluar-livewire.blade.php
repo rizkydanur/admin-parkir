@@ -1,4 +1,4 @@
-<div class="container mt-5" wire:poll.3s>
+<div class="container mt-5" wire:poll.2s>
     <!-- <input type="text" wire:model.debounce.500ms="search" placeholder="Cari nomor polisi..."> -->
     <table class="table table-bordered table-striped table-hover">
         <thead class="thead-dark">

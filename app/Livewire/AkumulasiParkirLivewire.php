@@ -1,26 +1,28 @@
 <?php
 
 namespace App\Livewire;
-
+use PhpMqtt\Client\Facades\MQTT;
 use Livewire\Component;
 
 use App\Models\AkumulasiParkir;
 
 class AkumulasiParkirLivewire extends Component
 {
-    public $total_kendaraan;
+    public $total_kendaraan_parkir;
     public $selected_id;
     public $updateMode = false;
-
+    
     public function render()
     {
+        
         $data = AkumulasiParkir::all();
         return view('livewire.akumulasi-parkir', compact('data'));
     }
 
     private function resetInput()
     {
-        $this->total_kendaraan = null;
+        MQTT::publish('reset/totalslots', '1');
+        $this->total_kendaraan_parkir = 0;
 
     }
 
@@ -31,25 +33,20 @@ class AkumulasiParkirLivewire extends Component
         $record = AkumulasiParkir::findOrFail($id);
 
         $this->selected_id = $id;
-        $this->total_kendaraan = $record->total_kendaraan;
-
-
+        $this->total_kendaraan_parkir = $record->total_kendaraan_parkir;
         $this->updateMode = true;
     }
 
     public function update()
     {
+        // dd($this->selected_id);
         $this->validate([
-            'total_kendaraan' => 'required|integer',
+            'total_kendaraan_parkir' => 'required|integer',
         ]);
-
         if ($this->selected_id) {
-            $record = AkumulasiParkir::find($this->selected_id);
-            $record->update([
-                'total_kendaraan' => $this->total_kendaraan,
-            ]);
-
-            $this->resetInput();
+            $record = AkumulasiParkir::find($this->selected_id)->first();
+            $record->total_kendaraan_parkir = $this->total_kendaraan_parkir;
+            $record->save();
             $this->updateMode = false;
         }
     }
@@ -57,9 +54,10 @@ class AkumulasiParkirLivewire extends Component
     public function resetRecord($id)
     {
         $record = AkumulasiParkir::find($id);
-
+        MQTT::publish('reset/totalslots', '1');
         if ($record) {
-            $record->total_kendaraan = 0;
+            $record->total_kendaraan_parkir = 0;
+            $record->total_parkir_tersedia = 144;
             $record->save();
 
             session()->flash('message', 'Data has been reset successfully.');
