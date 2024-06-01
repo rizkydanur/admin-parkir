@@ -1,9 +1,9 @@
 <div>
     
-    <table class="table table-bordered" wire:poll3.s>
+    <table class="table table-bordered">
         <thead>
             <tr>
-                <th>TOTAL KENDARAAN PARKIR</th>
+                <th>TOTAL MOBIL MASUK</th>
                 <th>TOTAL PARKIR TERSEDIA</th>               
                 <th>TOTAL SLOT PARKIR</th>
 
@@ -11,7 +11,7 @@
                 <th>Aksi</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody wire:poll.2s>
             @foreach($data as $item)
                 <tr>
                     <td>{{ $item->total_kendaraan_parkir }}</td>
@@ -43,7 +43,7 @@
                     <form wire:submit.prevent="update">
                         <div class="mb-3">
                             <label for="total_kendaraan_parkir" class="form-label">Total Kendaraan</label>
-                            <input type="number" class="form-control" id="total_kendaraan_parkir" wire:model="total_kendaraan_parkir">
+                            <input type="number" class="form-control" id="total_kendaraan_parkir" wire:model="total_kendaraan_parkir" min="0" max="144">
                             @error('total_kendaraan_parkir') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>

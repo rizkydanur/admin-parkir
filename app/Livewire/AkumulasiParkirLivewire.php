@@ -26,7 +26,9 @@ class AkumulasiParkirLivewire extends Component
 
     }
 
-
+    private function updateMQTT($total){
+        MQTT::publish('update/totalslots', $total);
+    }
 
     public function edit($id)
     {
@@ -39,14 +41,17 @@ class AkumulasiParkirLivewire extends Component
 
     public function update()
     {
-        // dd($this->selected_id);
         $this->validate([
             'total_kendaraan_parkir' => 'required|integer',
         ]);
         if ($this->selected_id) {
             $record = AkumulasiParkir::find($this->selected_id)->first();
             $record->total_kendaraan_parkir = $this->total_kendaraan_parkir;
+            $record->total_parkir_tersedia = $record->total_parkir_tersedia - $this->total_kendaraan_parkir;
             $record->save();
+            if($record){
+                $this->updateMQTT($this->total_kendaraan_parkir);
+            }
             $this->updateMode = false;
         }
     }
