@@ -7,17 +7,6 @@
                 <span class="sr-only">Toggle menu</span>
                 <span class="icon menu-toggle--gray" aria-hidden="true"></span>
             </button>
-            <div class="lang-switcher-wrapper">
-                <button class="lang-switcher transparent-btn" type="button">
-                    EN
-                    <i data-feather="chevron-down" aria-hidden="true"></i>
-                </button>
-                <ul class="lang-menu dropdown">
-                    <li><a href="#">English</a></li>
-                    <li><a href="#">French</a></li>
-                    <li><a href="#">Uzbek</a></li>
-                </ul>
-            </div>
             <button class="theme-switcher gray-circle-btn" type="button" title="Switch theme">
                 <span class="sr-only">Switch theme</span>
                 <i class="sun-icon" data-feather="sun" aria-hidden="true"></i>
@@ -43,7 +32,7 @@
                         <span>Account</span>
                         </a>
                     </li>
-                    <li><a href="{{ route('parkir.masuk') }}">
+                    <!-- <li><a href="{{ route('parkir.masuk') }}">
                         <i data-feather="log-in" aria-hidden="true"></i>
                         <span>Parkir Masuk</span>
                         </a>
@@ -52,7 +41,7 @@
                         <i data-feather="log-out" aria-hidden="true"></i>
                         <span>Parkir Keluar</span>
                         </a>
-                    </li>
+                    </li> -->
                     <li>
                         <a class="danger" href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i data-feather="log-out" aria-hidden="true"></i>

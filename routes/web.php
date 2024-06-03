@@ -24,9 +24,9 @@ Route::middleware(['auth', 'user-access:user'])->group(function () {
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('parkir/masuk', [UsersController::class, 'parkirMasuk'])->name('parkir.masuk');
     Route::get('parkir/keluar', [UsersController::class, 'parkirKeluar'])->name('parkir.keluar');
-    Route::get('/get-parking-data-bulan', [ParkingController::class, 'getParkingDataBulan']);
-    Route::get('/get-parking-data-hari', [ParkingController::class, 'getParkingDataHari']);
-    Route::get('/get-parking-data-tahun', [ParkingController::class, 'getParkingDataTahun']);
+    Route::get('/user/get-parking-data-bulan', [ParkingController::class, 'getParkingDataBulan']);
+    Route::get('/user/get-parking-data-hari', [ParkingController::class, 'getParkingDataHari']);
+    Route::get('/user/get-parking-data-tahun', [ParkingController::class, 'getParkingDataTahun']);
 });
 
 
@@ -42,6 +42,10 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     Route::get('/akumulasi-parkir', [AdminController::class, 'kendaraanMasuk'])->name('kendaraan.masuk');
     Route::get('/admin/parkir/masuk', [AdminController::class, 'parkirMasuk'])->name('parkir.masuk.admin');
     Route::get('/admin/parkir/keluar', [AdminController::class, 'parkirKeluar'])->name('parkir.keluar.admin');
+    Route::get('/get-parking-data-bulan', [ParkingController::class, 'getParkingDataBulan']);
+    Route::get('/get-parking-data-hari', [ParkingController::class, 'getParkingDataHari']);
+    Route::get('/get-parking-data-tahun', [ParkingController::class, 'getParkingDataTahun']);
+
     // Route::get('/akumulasi-parkir', AkumulasiParkirLivewire::class);
 });
 

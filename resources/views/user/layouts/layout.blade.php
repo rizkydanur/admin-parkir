@@ -21,7 +21,8 @@
 <!-- ! Body -->
 <a class="skip-link sr-only" href="#skip-target">Skip to content</a>
 <div class="page-flex">
-
+  <!-- Sidebar -->
+  @include('user.layouts.sidebar')
 
   <div class="main-wrapper">
     <!-- ! Main nav -->

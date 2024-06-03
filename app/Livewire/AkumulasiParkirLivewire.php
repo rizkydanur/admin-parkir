@@ -11,10 +11,12 @@ class AkumulasiParkirLivewire extends Component
     public $total_kendaraan_parkir;
     public $selected_id;
     public $updateMode = false;
-    
+
+    public $selectedItemId;
+
     public function render()
     {
-        
+
         $data = AkumulasiParkir::all();
         return view('livewire.akumulasi-parkir', compact('data'));
     }
@@ -56,6 +58,12 @@ class AkumulasiParkirLivewire extends Component
         }
     }
 
+
+    public function confirmReset($id)
+    {
+        $this->selectedItemId = $id;
+    }
+
     public function resetRecord($id)
     {
         $record = AkumulasiParkir::find($id);
@@ -64,6 +72,8 @@ class AkumulasiParkirLivewire extends Component
             $record->total_kendaraan_parkir = 0;
             $record->total_parkir_tersedia = 144;
             $record->save();
+
+        $this->resetInput();
 
             session()->flash('message', 'Data has been reset successfully.');
         } else {

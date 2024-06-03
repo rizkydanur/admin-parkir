@@ -6,6 +6,7 @@
 </section>
 
 
+
 <main class="main users chart-page" id="skip-target">
     <div class="container">
         <h2 class="main-title">Grafik</h2>
@@ -30,7 +31,7 @@
 <!-- data perbulan -->
 <script>
    document.addEventListener('DOMContentLoaded', function() {
-            fetch('/get-parking-data-bulan')
+            fetch('/user/get-parking-data-bulan')
                 .then(response => response.json())
                 .then(data => {
                     var chart = echarts.init(document.getElementById('chart'));
@@ -69,59 +70,11 @@
         });
 </script>
 
+
 <!-- data perhari -->
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        fetch('/get-parking-data-hari')
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                var chart = echarts.init(document.getElementById('chart2'));
-
-                var daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-
-                var option = {
-                    tooltip: {
-                        trigger: 'axis'
-                    },
-                    legend: {
-                        data: ['Parkir Masuk', 'Parkir Keluar']
-                    },
-                    xAxis: {
-                        type: 'category',
-                        data: daysOfWeek.map(day => data.masuk.hasOwnProperty(day) ? day : '')
-                    },
-                    yAxis: {
-                        type: 'value'
-                    },
-                    series: [
-                        {
-                            name: 'Parkir Masuk',
-                            type: 'bar',
-                            data: daysOfWeek.map(day => data.masuk[day] !== undefined ? data.masuk[day] : 0)
-                        },
-                        {
-                            name: 'Parkir Keluar',
-                            type: 'bar',
-                            data: daysOfWeek.map(day => data.keluar[day] !== undefined ? data.keluar[day] : 0)
-                        }
-                    ]
-                };
-
-                chart.setOption(option);
-            })
-            .catch(error => console.error('Error fetching data:', error));
-    });
-</script> -->
-
-
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-    fetch('/get-parking-data-hari')
+    fetch('/user/get-parking-data-hari')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -217,7 +170,7 @@
 
     // Function to fetch data from the database for the entire week
     function fetchData(startDate, endDate) {
-        return fetch(`/get-parking-data-hari?start=${startDate}&end=${endDate}`)
+        return fetch(`/user/get-parking-data-hari?start=${startDate}&end=${endDate}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -279,7 +232,7 @@
 <!-- data pertahun -->
 <script>
         document.addEventListener('DOMContentLoaded', function() {
-            fetch('/get-parking-data-tahun')
+            fetch('/user/get-parking-data-tahun')
                 .then(response => {
                     if (!response.ok) {
                         throw new Error('Network response was not ok');
@@ -321,8 +274,7 @@
                 })
                 .catch(error => console.error('Error fetching data:', error));
         });
-    </script>
-
+</script>
 
 
 @endsection

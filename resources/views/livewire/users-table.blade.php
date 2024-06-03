@@ -30,13 +30,13 @@
                             @error('password') <div class="text-danger">{{ $message }}</div> @enderror
                         </div>
                         <div class="mb-3">
-                                <label for="type" class="form-label">Role</label>
-                                <select class="form-control" id="type" wire:model="type">
-                                    <option value="">Silahkan pilih role</option>
-                                    <option value="0">User</option>
-                                    <option value="1">Admin</option>
-                                </select>
-                                @error('type') <div class="text-danger">{{ $message }}</div> @enderror
+                            <label for="type" class="form-label">Role</label>
+                            <select class="form-control" id="type" wire:model="type">
+                                <option value="">Please select a role</option>
+                                <option value="0">User</option>
+                                <option value="1">Admin</option>
+                            </select>
+                            @error('type') <div class="text-danger">{{ $message }}</div> @enderror
                         </div>
                     </form>
                 </div>
@@ -56,31 +56,36 @@
 
     <br>
     <br>
-    <table class="table table-striped">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">No</th>
-                <th scope="col">Name</th>
-                <th scope="col">Email</th>
-                <th scope="col">Role</th>
-                <th scope="col">Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach($users as $index => $user)
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <th scope="row">{{ $index + 1 }}</th>
-                    <td>{{ $user->name }}</td>
-                    <td>{{ $user->email }}</td>
-                    <td>{{ $user->type }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" wire:click="edit({{ $user->id }})" data-bs-toggle="modal" data-bs-target="#userModal">
-                            Edit
-                        </button>
-                        <button wire:click="delete({{ $user->id }})" class="btn btn-danger">Delete</button>
-                    </td>
+                    <th scope="col">No</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Action</th>
                 </tr>
-            @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach($users as $index => $user)
+                    <tr>
+                        <th scope="row">{{ $index + 1 }}</th>
+                        <td>{{ $user->name }}</td>
+                        <td>{{ $user->email }}</td>
+                        <td>{{ $user->type == 1 ? 'Admin' : 'User' }}</td>
+                        <td>
+                            <button type="button" class="btn btn-primary" wire:click="edit({{ $user->id }})" data-bs-toggle="modal" data-bs-target="#userModal">
+                                Edit
+                            </button>
+                            <button wire:click="delete({{ $user->id }})" class="btn btn-danger">Delete</button>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
+
