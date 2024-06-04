@@ -11,7 +11,7 @@ class AkumulasiParkirLivewire extends Component
     public $total_kendaraan_parkir;
     public $selected_id;
     public $updateMode = false;
-
+    public $showModal = false;
     public $selectedItemId;
 
     public function render()
@@ -21,13 +21,16 @@ class AkumulasiParkirLivewire extends Component
         return view('livewire.akumulasi-parkir', compact('data'));
     }
 
+
     private function resetInput()
     {
-        MQTT::publish('reset/totalslots', '1');
         $this->total_kendaraan_parkir = 0;
 
     }
 
+    private function resetMQTT(){
+        MQTT::publish('reset/totalslots', '1');
+    }
     private function updateMQTT($total){
         MQTT::publish('update/totalslots', $total);
     }
@@ -67,15 +70,15 @@ class AkumulasiParkirLivewire extends Component
     public function resetRecord($id)
     {
         $record = AkumulasiParkir::find($id);
-        MQTT::publish('reset/totalslots', '1');
         if ($record) {
             $record->total_kendaraan_parkir = 0;
             $record->total_parkir_tersedia = 144;
             $record->save();
-
-        $this->resetInput();
-
-            session()->flash('message', 'Data has been reset successfully.');
+            if($record){
+                $this->resetMQTT();
+                $this->resetInput();
+                session()->flash('message', 'Data has been reset successfully.');
+            }
         } else {
             session()->flash('error', 'Record not found.');
         }

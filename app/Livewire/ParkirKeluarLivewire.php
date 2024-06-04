@@ -50,12 +50,12 @@ class ParkirKeluarLivewire extends Component
             }
 
 
-            $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
-                $query->where(function ($query) use ($trimmedSearch) {
-                    $query->where('no_polisi', 'like', '%' . $trimmedSearch . '%')
-                          ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
-                });
+        $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
+            $query->where(function ($query) use ($trimmedSearch) {
+                $query->where('no_polisi', 'like', '%' . $trimmedSearch . '%')
+                      ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
             });
+        });
 
         $parkirKeluarResult = $parkirKeluarQuery->paginate(20);
 

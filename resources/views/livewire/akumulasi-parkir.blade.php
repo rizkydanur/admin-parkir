@@ -16,7 +16,7 @@
                     <td>{{ $item->total_slot_parkir }}</td>
                     <td>
                         <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" wire:click="edit({{ $item->id }})">Edit</button>
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#resetModal" wire:click="resetRecord({{ $item->id }})">Reset</button>
+                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#resetModal" >Reset</button>
                         <!-- <button class="btn btn-danger btn-sm" wire:click="resetRecord({{ $item->id }})">reset</button> -->
                     </td>
                 </tr>
@@ -59,7 +59,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
-                    <button type="button" class="btn btn-danger" wire:click="resetRecord({{ $item->id }})">Ya, Reset</button>
+                    <button type="button" class="btn btn-danger" wire:click="resetRecord({{ $item->id }})" data-bs-dismiss="modal">Ya, Reset</button>
                 </div>
             </div>
         </div>
