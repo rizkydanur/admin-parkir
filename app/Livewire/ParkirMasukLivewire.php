@@ -18,18 +18,41 @@ class ParkirMasukLivewire extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+    public $startDate;
+    public $endDate;
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function applyFilters()
+    {
+
+    }
+
     public function render()
     {
         $trimmedSearch = trim($this->search);
 
         $parkirMasukQuery = ParkirMasuk::query()
-            ->whereDate('jam_masuk', Carbon::today())
             ->orderBy('jam_masuk', 'desc');
+
+        if ($this->startDate && $this->endDate) {
+            $parkirMasukQuery->whereBetween('jam_masuk', [
+                Carbon::parse($this->startDate)->startOfDay(),
+                Carbon::parse($this->endDate)->endOfDay()
+            ]);
+        } else {
+
+            $parkirMasukQuery->whereDate('jam_masuk', Carbon::today());
+        }
+
 
         $parkirMasukQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
             $query->where(function ($query) use ($trimmedSearch) {
                 $query->where('no_polisi', 'like', '%' . $trimmedSearch . '%')
-                      ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
+                        ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
             });
         });
 

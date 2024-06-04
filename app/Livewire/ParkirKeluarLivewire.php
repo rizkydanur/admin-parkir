@@ -18,20 +18,44 @@ class ParkirKeluarLivewire extends Component
 
     protected $paginationTheme = 'bootstrap'; // Optional: Use Bootstrap styling for pagination
 
+    public $startDate;
+    public $endDate;
+
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function applyFilters()
+    {
+
+    }
+
     public function render()
     {
         $trimmedSearch = trim($this->search);
 
         $parkirKeluarQuery = ParkirKeluar::query()
-            ->whereDate('jam_keluar', Carbon::today())
             ->orderBy('created_at', 'desc');
 
-        $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
-            $query->where(function ($query) use ($trimmedSearch) {
-                $query->where('no_polisi', 'like', '%' . $trimmedSearch . '%')
-                      ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
+            if ($this->startDate && $this->endDate) {
+                $parkirKeluarQuery->whereBetween('jam_keluar', [
+                    Carbon::parse($this->startDate)->startOfDay(),
+                    Carbon::parse($this->endDate)->endOfDay()
+                ]);
+            } else {
+
+                $parkirKeluarQuery->whereDate('jam_keluar', Carbon::today());
+            }
+
+
+            $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
+                $query->where(function ($query) use ($trimmedSearch) {
+                    $query->where('no_polisi', 'like', '%' . $trimmedSearch . '%')
+                          ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
+                });
             });
-        });
 
         $parkirKeluarResult = $parkirKeluarQuery->paginate(20);
 

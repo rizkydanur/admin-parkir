@@ -21,6 +21,10 @@ class ParkirKeluarLivewireAdmin extends Component
 
     protected $paginationTheme = 'bootstrap';
 
+
+    public $startDate;
+    public $endDate;
+
     protected $rules = [
         'no_polisi' => 'required|string',
         'id_kartu' => 'required|string',
@@ -32,11 +36,30 @@ class ParkirKeluarLivewireAdmin extends Component
         $this->resetPage();
     }
 
+    public function applyFilters()
+    {
+
+    }
+
     public function render()
     {
         $trimmedSearch = trim($this->search);
 
-        $parkirKeluarQuery = ParkirKeluar::query()->whereDate('jam_keluar', Carbon::today())->orderBy('jam_keluar', 'desc');
+
+        $parkirKeluarQuery = ParkirKeluar::query()
+            ->orderBy('jam_keluar', 'desc');
+
+
+        if ($this->startDate && $this->endDate) {
+            $parkirKeluarQuery->whereBetween('jam_keluar', [
+                Carbon::parse($this->startDate)->startOfDay(),
+                Carbon::parse($this->endDate)->endOfDay()
+            ]);
+        } else {
+
+            $parkirKeluarQuery->whereDate('jam_keluar', Carbon::today());
+        }
+
 
         $parkirKeluarQuery->when($trimmedSearch !== '', function ($query) use ($trimmedSearch) {
             $query->where(function ($query) use ($trimmedSearch) {
@@ -45,7 +68,9 @@ class ParkirKeluarLivewireAdmin extends Component
             });
         });
 
+
         $parkirKeluarResult = $parkirKeluarQuery->paginate(20);
+
 
         return view('livewire.parkir-keluar-livewire-admin', ['parkirKeluarArray' => $parkirKeluarResult]);
     }

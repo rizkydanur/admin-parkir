@@ -12,6 +12,9 @@
   <!-- Template styles -->
   <link rel="stylesheet" href="{{ asset('assets/css/style.min.css') }}">
 
+
+
+
   <!-- Livewire styles -->
   @livewireStyles
 </head>
