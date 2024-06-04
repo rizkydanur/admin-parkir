@@ -46,7 +46,6 @@ class ParkirKeluarLivewireAdmin extends Component
         });
 
         $parkirKeluarResult = $parkirKeluarQuery->paginate(20);
-
         return view('livewire.parkir-keluar-livewire-admin', ['parkirKeluarArray' => $parkirKeluarResult]);
     }
 

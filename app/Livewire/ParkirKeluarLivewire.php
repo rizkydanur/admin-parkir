@@ -32,7 +32,6 @@ class ParkirKeluarLivewire extends Component
                       ->orWhere('id_kartu', 'like', '%' . $trimmedSearch . '%');
             });
         });
-
         $parkirKeluarResult = $parkirKeluarQuery->paginate(20);
 
         return view('livewire.parkir-keluar-livewire', [
