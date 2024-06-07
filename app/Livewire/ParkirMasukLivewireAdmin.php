@@ -6,6 +6,8 @@ use Livewire\Component;
 use Livewire\WithPagination;
 use App\Models\ParkirMasuk;
 use Carbon\Carbon;
+use Illuminate\Support\Str;
+use PhpMqtt\Client\Facades\MQTT;
 
 class ParkirMasukLivewireAdmin extends Component
 {
@@ -82,18 +84,28 @@ class ParkirMasukLivewireAdmin extends Component
         $this->showForm = false;
     }
 
+    private function tambahKendaraan(){
+        MQTT::publish('sensor/masuk', '1');
+    }
+
+   
+
     public function store()
     {
-        $this->validate();
-
-        ParkirMasuk::create([
-            'no_polisi' => $this->no_polisi,
-            'id_kartu' => $this->id_kartu,
-            'jam_masuk' => $this->jam_masuk,
+        
+        $parkirmasuk = ParkirMasuk::create([
+            'id_kartu'     => Str::random(12),
+            'no_polisi'     => 'B'.random_int(1000,9999).'XXX',
+            'jam_masuk'   => Carbon::now()->format('Y-m-d H:i:s'),
         ]);
 
-        session()->flash('message', 'Data parkir masuk berhasil ditambahkan.');
-        $this->resetInputFields();
+        if($parkirmasuk){
+            $this->tambahKendaraan();
+            $this->resetInputFields();
+            session()->flash('message', 'Data parkir masuk berhasil ditambahkan.');
+
+        }
+
     }
 
     public function edit($id)
