@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div>
     @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session('message') }}
@@ -27,7 +27,7 @@
         <br>
     </div>
 
-    <div class="row mt-4">
+    <div class="row mb-4">
         <div class="col-md-12">
             <button wire:click="toggleForm" class="btn btn-primary mb-3">
                 {{ $showForm ? 'Hide Form' : 'Add New Record' }}
@@ -35,19 +35,19 @@
             @if ($showForm)
                 <form wire:submit.prevent="{{ $isEditMode ? 'update' : 'store' }}">
                     <div class="form-row">
-                        <div class="form-group col-md-3">
+                        <div class="col">
                             <input type="text" wire:model="no_polisi" class="form-control" placeholder="No Polisi">
                             @error('no_polisi') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="col">
                             <input type="text" wire:model="id_kartu" class="form-control" placeholder="ID Kartu">
                             @error('id_kartu') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="form-group col-md-3">
-                            <input type="text" wire:model="jam_masuk" class="form-control" placeholder="Jam Masuk (YYYY-MM-DD HH:MM:SS)">
-                            @error('jam_masuk') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div class="col">
+                            <input type="text" wire:model="jam_keluar" class="form-control" placeholder="Jam Keluar (YYYY-MM-DD HH:MM:SS)">
+                            @error('jam_keluar') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
-                        <div class="form-group col-md-3">
+                        <div class="col">
                             @if($isEditMode)
                                 <button type="submit" class="btn btn-success">Update</button>
                             @else
@@ -62,11 +62,10 @@
     </div>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover" wire:poll.2s>
+        <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">No Polisi</th>
-                    <th scope="col">ID Kartu</th>
+                    <th scope="col">ID Sensor</th>
                     <th scope="col">Jam Masuk</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -74,7 +73,6 @@
             <tbody>
                 @foreach ($parkirMasukArray as $item)
                     <tr>
-                        <td>{{ $item->no_polisi }}</td>
                         <td>{{ $item->id_kartu }}</td>
                         <td>{{ $item->jam_masuk }}</td>
                         <td>
@@ -85,8 +83,6 @@
                 @endforeach
             </tbody>
         </table>
-    <div>
-    {{ $parkirMasukArray->links() }}
+        {{ $parkirMasukArray->links() }}
+    </div>
 </div>
-
-

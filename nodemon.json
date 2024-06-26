@@ -1,0 +1,5 @@
+{
+    "watch": ["app", "bootstrap", "config", "database", "public", "resources", "routes", "storage"],
+    "ext": "php,js,css,html",
+    "exec": "php artisan serve"
+}

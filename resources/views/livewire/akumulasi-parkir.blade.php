@@ -1,28 +1,38 @@
-<div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>TOTAL MOBIL MASUK</th>
-                <th>TOTAL PARKIR TERSEDIA</th>
-                <th>TOTAL SLOT PARKIR</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody wire:poll.2s>
-            @foreach($data as $item)
-                <tr>
-                    <td>{{ $item->total_kendaraan_parkir }}</td>
-                    <td>{{ $item->total_parkir_tersedia }}</td>
-                    <td>{{ $item->total_slot_parkir }}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" wire:click="edit({{ $item->id }})">Edit</button>
-                        <button class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#resetModal" >Reset</button>
-                        <!-- <button class="btn btn-danger btn-sm" wire:click="resetRecord({{ $item->id }})">reset</button> -->
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+<div>    
+    <div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>TOTAL PARKIR TERISI</th>
+                            <th>TOTAL PARKIR TERSEDIA</th>
+                            <th>TOTAL SLOT PARKIR</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($data as $item)
+                            <tr>
+                                <td>{{ $item->total_kendaraan_parkir }}</td>
+                                <td>{{ $item->total_parkir_tersedia }}</td>
+                                <td>{{ $item->total_slot_parkir }}</td>
+                                <td>
+                                    <div class="d-flex flex-wrap">
+                                        <button class="btn btn-warning btn-sm me-2 mb-2" data-bs-toggle="modal" data-bs-target="#editModal" wire:click="edit({{ $item->id }})">Edit</button>
+                                        <button class="btn btn-danger btn-sm mb-2" data-bs-toggle="modal" data-bs-target="#resetModal">Reset</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+    
 
     <!-- Edit Modal -->
     <div wire:ignore.self class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
@@ -36,7 +46,7 @@
                     <form wire:submit.prevent="update">
                         <div class="mb-3">
                             <label for="total_kendaraan_parkir" class="form-label">Total Kendaraan</label>
-                            <input type="number" class="form-control" id="total_kendaraan_parkir" wire:model="total_kendaraan_parkir" min="0" max="144">
+                            <input type="number" class="form-control" id="total_kendaraan_parkir" wire:model="total_kendaraan_parkir" min="0" max="528">
                             @error('total_kendaraan_parkir') <span class="text-danger">{{ $message }}</span> @enderror
                         </div>
                         <button type="submit" class="btn btn-primary">Update</button>

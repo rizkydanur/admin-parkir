@@ -32,11 +32,13 @@
       <br>
       <!-- Main content -->
       @yield('content')
-
-      <!-- Footer -->
-      @include('admin.layouts.footer')
+      <br>
+      <br>
+      <br>
+      </div>
+    <!-- Footer -->
     </div>
-  </div>
+ 
   <!-- Chart library -->
   <script src="{{ asset('assets/plugins/chart.min.js') }}"></script>
   <!-- Icons library -->
@@ -46,9 +48,30 @@
   <!-- Bootstrap JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
   <!-- Livewire scripts -->
   @livewireScripts
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        let ws = new WebSocket('ws://10.70.5.172:8080');
+        ws.onmessage = function (event) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: event.data,
+            showConfirmButton: false,
+            timer: 1500
+          });
+          setTimeout(function () {
+            location.reload();
+          }, 1500);
+
+        };
+    });
+</script>
+
 </body>
 </html>

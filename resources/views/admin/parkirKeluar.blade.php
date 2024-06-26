@@ -1,5 +1,4 @@
 @extends('admin.layouts.layout')
-
 @section('content')
 <div class="container">
     <div class="row">
@@ -13,5 +12,5 @@
         </div>
     </div>
 </div>
-
+@include('admin.layouts.footer')
 @endsection

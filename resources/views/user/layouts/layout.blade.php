@@ -31,10 +31,10 @@
     <!-- ! Main -->
     @yield('content')
     <div style="height: 350px;"></div>
-    <!-- ! Footer -->
-    @include('user.layouts.footer')
-
-  </div>
+    
+    </div>
+  <!-- ! Footer -->
+  @include('user.layouts.footer')
 </div>
 <!-- Chart library -->
 <script  src="{{ asset('assets/plugins/chart.min.js') }}"></script>

@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div>
     @if (session()->has('message'))
         <div class="alert alert-success">
             {{ session('message') }}
@@ -25,7 +25,6 @@
             </div>
         </div>
         <br>
-
     </div>
 
     <div class="row mb-4">
@@ -62,13 +61,11 @@
         </div>
     </div>
 
-
     <div class="table-responsive">
-        <table class="table table-bordered table-striped table-hover" wire:poll.2s>
+        <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">No Polisi</th>
-                    <th scope="col">ID Kartu</th>
+                    <th scope="col">ID Sensor</th>
                     <th scope="col">Jam Keluar</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -76,7 +73,6 @@
             <tbody>
                 @foreach ($parkirKeluarArray as $item)
                     <tr>
-                        <td>{{ $item->no_polisi }}</td>
                         <td>{{ $item->id_kartu }}</td>
                         <td>{{ $item->jam_keluar }}</td>
                         <td>
@@ -87,6 +83,6 @@
                 @endforeach
             </tbody>
         </table>
+        {{ $parkirKeluarArray->links() }}
     </div>
-    {{ $parkirKeluarArray->links() }}
 </div>

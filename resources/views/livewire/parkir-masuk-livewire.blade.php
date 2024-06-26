@@ -30,19 +30,17 @@
     </div>
     <br>
 
-    <div class="table-responsive">
+    <div class="table-responsive" wire:poll.1s>
         <table class="table table-bordered table-striped table-hover">
             <thead class="thead-dark">
                 <tr>
-                    <th scope="col">No Polisi</th>
-                    <th scope="col">ID Kartu</th>
+                    <th scope="col">ID Sensor</th>
                     <th scope="col">Jam Masuk</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach ($parkirMasukArray as $item)
                     <tr>
-                        <td>{{ $item['no_polisi'] }}</td>
                         <td>{{ $item['id_kartu'] }}</td>
                         <td>{{ $item['jam_masuk'] }}</td>
                     </tr>

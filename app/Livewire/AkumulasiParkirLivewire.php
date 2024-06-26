@@ -13,6 +13,14 @@ class AkumulasiParkirLivewire extends Component
     public $updateMode = false;
     public $showModal = false;
     public $selectedItemId;
+    public $message = '';
+
+    protected $listeners = ['notify'];
+
+    public function notify($message)
+    {
+        $this->message = $message;
+    }
 
     public function render()
     {
@@ -61,7 +69,6 @@ class AkumulasiParkirLivewire extends Component
         }
     }
 
-
     public function confirmReset($id)
     {
         $this->selectedItemId = $id;
@@ -72,7 +79,7 @@ class AkumulasiParkirLivewire extends Component
         $record = AkumulasiParkir::find($id);
         if ($record) {
             $record->total_kendaraan_parkir = 0;
-            $record->total_parkir_tersedia = 144;
+            $record->total_parkir_tersedia = 528;
             $record->save();
             if($record){
                 $this->resetMQTT();

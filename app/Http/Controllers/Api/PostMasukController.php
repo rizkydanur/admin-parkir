@@ -66,7 +66,7 @@ class PostMasukController extends Controller
         // Update akumulasi parkir data
         $akumulasiParkir = AkumulasiParkir::latest()->first();
         if ($akumulasiParkir) {
-            if($akumulasiParkir->total_kendaraan_parkir >= 144){
+            if($akumulasiParkir->total_kendaraan_parkir > 528){
                 return response()->json([
                     'success'=>true,
                     'data'=>'Maaf Parkir Penuh...',
